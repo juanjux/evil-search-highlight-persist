@@ -105,10 +105,9 @@
 
 
 ;;;###autoload
-(define-globalized-minor-mode global-search-highlight-persist
+(define-globalized-minor-mode global-evil-search-highlight-persist
   evil-search-highlight-persist turn-on-search-highlight-persist)
 
 ;; * provide
-
 (provide 'evil-search-highlight-persist)
 ;;; evil-search-highlight-persist.el ends here
