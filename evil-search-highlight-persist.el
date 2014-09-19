@@ -70,11 +70,13 @@
   (evil-search-highlight-persist-remove-all)
   (evil-search-highlight-persist-mark))
 
-
-(defadvice evil-search-incrementally (after evil-search-highlight-persist)
+(defadvice evil-search-incrementally (after evil-search--highlight-persist)
   (evil-search-highlight-persist-remove-all)
   (evil-search-highlight-persist-mark))
 
+(defadvice evil-search-word (after evil-search--highlight-persist)
+  (evil-search-highlight-persist-remove-all)
+  (evil-search-highlight-persist-mark))
 
 ;;;###autoload
 (define-minor-mode evil-search-highlight-persist
@@ -86,11 +88,13 @@
  (if evil-search-highlight-persist
    (progn
       (ad-activate 'isearch-exit)
-      (ad-activate 'evil-search-incrementally))
+      (ad-activate 'evil-search-incrementally)
+      (ad-activate 'evil-search-word))
    (progn
       (evil-search-highlight-persist-remove-all)
       (ad-deactivate 'isearch-exit)
-      (ad-deactivate 'evil-search-incrementally))))
+      (ad-deactivate 'evil-search-incrementally)
+      (ad-deactivate 'evil-search-word))))
 
 
 ;;;###autoload
