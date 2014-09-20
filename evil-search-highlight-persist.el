@@ -62,9 +62,11 @@
   (hi-lock-mode 1))
 
 (defun evil-search-highlight-persist-mark ()
-  (highlight-regexp (car-safe (if isearch-regexp
-                                  regexp-search-ring
-                                search-ring)) (facep 'evil-search-highlight-persist-highlight-face)))
+  (highlight-regexp
+    (car-safe (if isearch-regexp
+                regexp-search-ring
+                search-ring))
+    (face-name 'evil-search-highlight-persist-highlight-face)))
 
 (defadvice isearch-exit (after isearch-highlight-persist)
   (evil-search-highlight-persist-remove-all)
