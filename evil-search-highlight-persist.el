@@ -3,6 +3,7 @@
 
 ;; Author: Juanjo Alvarez <juanjo@juanjoalvarez.net>
 ;; Created:  September 18, 2014
+;; Package-Requires: ((highlight "0"))
 
 ;; This file is NOT part of GNU Emacs.
 
@@ -42,6 +43,7 @@
 
 ;;; User Customizable Variables:
 (require 'advice)
+(require 'highlight)
 
 (defgroup evil-search-highlight-persist nil
   "evil-search-highlight-persist -- Search Highlight Remain, Vim's style"
@@ -58,15 +60,16 @@
 
 (defun evil-search-highlight-persist-remove-all ()
   (interactive)
-  (hi-lock-mode -1)
-  (hi-lock-mode 1))
+  (hlt-unhighlight-region-in-buffers (list (current-buffer))))
 
 (defun evil-search-highlight-persist-mark ()
-  (highlight-regexp
-    (car-safe (if isearch-regexp
-                regexp-search-ring
-                search-ring))
-    (face-name 'evil-search-highlight-persist-highlight-face)))
+  (let ((hlt-use-overlays-flag t)
+        (hlt-last-face 'evil-search-highlight-persist-highlight-face))
+    (hlt-highlight-regexp-region-in-buffers
+     (car-safe (if isearch-regexp
+                   regexp-search-ring
+                 search-ring))
+     (list (current-buffer)))))
 
 (defadvice isearch-exit (after isearch-highlight-persist)
   (evil-search-highlight-persist-remove-all)
