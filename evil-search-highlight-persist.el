@@ -1,5 +1,6 @@
 ;;; evil-search-highlight-persist.el --- Persistent highlights after search
-;; Version: 20140918
+;; Version: 20150107.4
+;; X-Original-Version: 20140918
 
 ;; Author: Juanjo Alvarez <juanjo@juanjoalvarez.net>
 ;; Created:  September 18, 2014
@@ -71,35 +72,28 @@
                  search-ring))
      (list (current-buffer)))))
 
-(defadvice isearch-exit (after isearch-highlight-persist)
+(defadvice isearch-exit (after isearch--highlight-persist)
   (evil-search-highlight-persist-remove-all)
   (evil-search-highlight-persist-mark))
 
-(defadvice evil-search (after evil-search--highlight-persist)
-  (evil-search-highlight-persist-remove-all)
-  (evil-search-highlight-persist-mark))
-
-(defadvice evil-flash-search-pattern (after evil-search--highlight-persist)
+(defadvice evil-flash-search-pattern (after evil-flash-search--highlight-persist)
   (evil-search-highlight-persist-remove-all)
   (evil-search-highlight-persist-mark))
 
 ;;;###autoload
 (define-minor-mode evil-search-highlight-persist
  "Keep the highlights persist after a search"
- :global t
  :keymap (let ((map (make-sparse-keymap)))
            (define-key map (kbd "C-x SPC") 'evil-search-highlight-persist-remove-all)
             map)
  (if evil-search-highlight-persist
    (progn
       (ad-activate 'isearch-exit)
-      (ad-activate 'evil-flash-search-pattern)
-      (ad-activate 'evil-search))
+      (ad-activate 'evil-flash-search-pattern))
    (progn
       (evil-search-highlight-persist-remove-all)
       (ad-deactivate 'isearch-exit)
-      (ad-deactivate 'evil-flash-search-pattern)
-      (ad-deactivate 'evil-search))))
+      (ad-deactivate 'evil-flash-search-pattern))))
 
 
 ;;;###autoload
