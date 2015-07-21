@@ -9,12 +9,12 @@ is how Vim search works by default when you enable hlsearch. This extension requ
 "highlight" extension.
 
 To enable:
-    (require 'highlight)
-    
-    (require 'evil-search-highlight-persist)
 
+    (require 'highlight)
+    (require 'evil-search-highlight-persist)
     (global-evil-search-highlight-persist t)
     
+    ;; To only display string whose length is greater than or equal to 3
     ;; (setq evil-search-highlight-string-min-len 3)
     
 
