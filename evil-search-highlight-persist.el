@@ -39,6 +39,9 @@
 ;; (require 'evil-search-highlight-persist)
 ;; (global-evil-search-highlight-persist t)
 
+;; To only display string whose length is greater than or equal to 3
+;; (setq evil-search-highlight-string-min-len 3)
+
 
 ;;; Code:
 
@@ -63,16 +66,7 @@
   (interactive)
   (hlt-unhighlight-region-in-buffers (list (current-buffer))))
 
-;; (defun evil-search-highlight-persist-mark ()
-;;   (let ((hlt-use-overlays-flag t)
-;;         (hlt-last-face 'evil-search-highlight-persist-highlight-face))
-;;     (hlt-highlight-regexp-region-in-buffers
-;;      (car-safe (if isearch-regexp
-;;                    regexp-search-ring
-;;                  search-ring))
-;;      (list (current-buffer)))))
-
-
+(defvar evil-search-highlight-string-min-len 1 "min legth")
 (defun evil-search-highlight-persist-mark ()
   (let ((hlt-use-overlays-flag t)
         (hlt-last-face 'evil-search-highlight-persist-highlight-face))
@@ -80,7 +74,7 @@
     (if isearch-regexp
         (setq tmp (car-safe regexp-search-ring))
       (setq tmp (car-safe search-ring)))
-    (if (>= (length tmp) 3)
+    (if (>= (length tmp) evil-search-highlight-string-min-len)
         (hlt-highlight-regexp-region-in-buffers
          tmp
          (list (current-buffer))))))
