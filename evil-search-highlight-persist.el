@@ -63,14 +63,27 @@
   (interactive)
   (hlt-unhighlight-region-in-buffers (list (current-buffer))))
 
+;; (defun evil-search-highlight-persist-mark ()
+;;   (let ((hlt-use-overlays-flag t)
+;;         (hlt-last-face 'evil-search-highlight-persist-highlight-face))
+;;     (hlt-highlight-regexp-region-in-buffers
+;;      (car-safe (if isearch-regexp
+;;                    regexp-search-ring
+;;                  search-ring))
+;;      (list (current-buffer)))))
+
+
 (defun evil-search-highlight-persist-mark ()
   (let ((hlt-use-overlays-flag t)
         (hlt-last-face 'evil-search-highlight-persist-highlight-face))
-    (hlt-highlight-regexp-region-in-buffers
-     (car-safe (if isearch-regexp
-                   regexp-search-ring
-                 search-ring))
-     (list (current-buffer)))))
+    (setq tmp nil)
+    (if isearch-regexp
+        (setq tmp (car-safe regexp-search-ring))
+      (setq tmp (car-safe search-ring)))
+    (if (>= (length tmp) 3)
+        (hlt-highlight-regexp-region-in-buffers
+         tmp
+         (list (current-buffer))))))
 
 (defadvice isearch-exit (after isearch--highlight-persist)
   (evil-search-highlight-persist-remove-all)
