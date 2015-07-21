@@ -10,7 +10,12 @@ is how Vim search works by default when you enable hlsearch. This extension requ
 
 To enable:
     (require 'highlight)
+    
     (require 'evil-search-highlight-persist)
+
     (global-evil-search-highlight-persist t)
+    
+    ;; (setq evil-search-highlight-string-min-len 3)
+    
 
 ![IMAGE](http://i.imgur.com/Rky7Gj0.png)
