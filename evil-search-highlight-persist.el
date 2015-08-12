@@ -106,7 +106,8 @@
 ;;;###autoload
 (defun turn-on-search-highlight-persist ()
   "Enable search-highlight-persist in the current buffer."
-  (evil-search-highlight-persist 1))
+  (evil-search-highlight-persist
+   (if (eq 'fundamental-mode major-mode) -1 1)))
 
 ;;;###autoload
 (defun turn-off-search-highlight-persist ()
