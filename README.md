@@ -18,4 +18,9 @@ To enable:
     ;; (setq evil-search-highlight-string-min-len 3)
     
 
+Please use unhighlight-regexp to remove all highlights, like:
+    
+    (global-set-key [f12] 'unhighlight-regexp)
+    
+
 ![IMAGE](http://i.imgur.com/Rky7Gj0.png)

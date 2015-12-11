@@ -73,11 +73,11 @@
     (setq tmp nil)
     (if isearch-regexp
         (setq tmp (car-safe regexp-search-ring))
-        (setq tmp (car-safe search-ring)))
+      (setq tmp (car-safe search-ring)))
     (if (>= (length tmp) evil-search-highlight-string-min-len)
-          (if isearch-regexp
-              (hlt-highlight-regexp-region-in-buffers tmp (list (current-buffer)))
-            (hlt-highlight-region-in-buffers tmp (list (current-buffer)))))))
+        (hlt-highlight-regexp-region-in-buffers
+         tmp
+         (list (current-buffer))))))
 
 (defadvice isearch-exit (after isearch--highlight-persist)
   (evil-search-highlight-persist-remove-all)
