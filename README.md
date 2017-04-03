@@ -1,6 +1,9 @@
 Emacs Evil-Search-Highlight-Persist Minor Mode
 ==============================================
 
+**IMPORTANT**: *this project is currently unmaintained; I went back to Vim as my main editor. If someone
+want to take over this just fork and we can update the elpa links*.
+
 This Emacs extension will make `isearch` and `evil-ex-search-incremental` (the "slash
 search") to highlight the search term (taken as a regexp) in all the buffer and
 persistently until you make another search or clear the highlights with the
